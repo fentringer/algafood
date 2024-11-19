@@ -1,5 +1,5 @@
-insert into Cozinha (id, nome) values (1, 'Thai');
-insert into Cozinha (id, nome) values (2, 'Indian');
+insert into Cozinha (id, nome) values (1, 'Tailandesa');
+insert into Cozinha (id, nome) values (2, 'Indiana');
 insert into Cozinha (id, nome) values (3, 'Brasileira');
 insert into Cozinha (id, nome) values (4, 'Japonesa');
 

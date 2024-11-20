@@ -1,27 +1,47 @@
 package com.algaworks.algafood.controller;
 
-import com.algaworks.algafood.domain.model.Estado;
-import com.algaworks.algafood.domain.repository.EstadoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.algaworks.algafood.model.dto.EstadoDTO;
+import com.algaworks.algafood.service.EstadoService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/estados")
+@RequestMapping(value = "/estados")
 public class EstadoController {
 
-    private final EstadoRepository estadoRepository;
+    private final EstadoService service;
 
-    public EstadoController(EstadoRepository estadoRepository) {
-        this.estadoRepository = estadoRepository;
+    public EstadoController(EstadoService service) {
+        this.service = service;
     }
 
-    @GetMapping()
-    public List<Estado> listar() {
-        return estadoRepository.findAll();
+    @GetMapping
+    public ResponseEntity<List<EstadoDTO>> listar() {
+        return ResponseEntity.ok(service.listar());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<EstadoDTO> buscar(@PathVariable Long id) {
+        return ResponseEntity.ok(service.buscar(id));
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public EstadoDTO adicionar(@RequestBody EstadoDTO estadoDTO) {
+        return service.salvar(estadoDTO);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<EstadoDTO> atualizar(@PathVariable Long id, @RequestBody EstadoDTO estadoDTO) {
+        return ResponseEntity.ok(service.atualizar(id, estadoDTO));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> remover(@PathVariable Long id) {
+        service.remover(id);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.exception;
+package com.algaworks.algafood.exception;
 
 public class EntidadeEmUsoException extends RuntimeException{
 

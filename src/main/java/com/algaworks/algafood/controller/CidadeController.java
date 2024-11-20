@@ -1,7 +1,7 @@
 package com.algaworks.algafood.controller;
 
-import com.algaworks.algafood.model.dto.CozinhaDTO;
-import com.algaworks.algafood.service.CozinhaService;
+import com.algaworks.algafood.model.dto.CidadeDTO;
+import com.algaworks.algafood.service.CidadeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,34 +9,34 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/cozinhas")
-public class CozinhaController {
+@RequestMapping(value = "/cidades")
+public class CidadeController {
 
-    private final CozinhaService service;
+    private final CidadeService service;
 
-    public CozinhaController(CozinhaService service) {
+    public CidadeController(CidadeService service) {
         this.service = service;
     }
 
     @GetMapping
-    public ResponseEntity<List<CozinhaDTO>> listar() {
+    public ResponseEntity<List<CidadeDTO>> listar() {
         return ResponseEntity.ok(service.listar());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CozinhaDTO> buscar(@PathVariable Long id) {
+    public ResponseEntity<CidadeDTO> buscar(@PathVariable Long id) {
         return ResponseEntity.ok(service.buscar(id));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CozinhaDTO adicionar(@RequestBody CozinhaDTO cozinhaDTO) {
-        return service.salvar(cozinhaDTO);
+    public CidadeDTO adicionar(@RequestBody CidadeDTO cidadeDTO) {
+        return service.salvar(cidadeDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CozinhaDTO> atualizar(@PathVariable Long id, @RequestBody CozinhaDTO cozinhaDTO) {
-        return ResponseEntity.ok(service.atualizar(id, cozinhaDTO));
+    public ResponseEntity<CidadeDTO> atualizar(@PathVariable Long id, @RequestBody CidadeDTO cidadeDTO) {
+        return ResponseEntity.ok(service.atualizar(id, cidadeDTO));
     }
 
     @DeleteMapping("/{id}")

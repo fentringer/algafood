@@ -1,15 +1,12 @@
 package com.algaworks.algafood.controller;
 
-import com.algaworks.algafood.domain.model.Cozinha;
-import com.algaworks.algafood.domain.model.Restaurante;
-import com.algaworks.algafood.domain.service.CozinhaService;
-import com.algaworks.algafood.domain.service.RestauranteService;
+import com.algaworks.algafood.model.dto.RestauranteDTO;
+import com.algaworks.algafood.service.RestauranteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 @RestController
 @RequestMapping(value = "/restaurantes")
@@ -22,34 +19,29 @@ public class RestauranteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Restaurante>> listar() {
+    public ResponseEntity<List<RestauranteDTO>> listar() {
         return ResponseEntity.ok(service.listar());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Restaurante> buscar(@PathVariable Long id) {
-        return service.buscar(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<RestauranteDTO> buscar(@PathVariable Long id) {
+        return ResponseEntity.ok(service.buscar(id));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Restaurante adicionar(@RequestBody Restaurante restaurante) {
-        return service.salvar(restaurante);
+    public RestauranteDTO adicionar(@RequestBody RestauranteDTO restauranteDTO) {
+        return service.salvar(restauranteDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Restaurante> atualizar(@PathVariable Long id, @RequestBody Restaurante restaurante) {
-        return service.atualizar(id, restaurante)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<RestauranteDTO> atualizar(@PathVariable Long id, @RequestBody RestauranteDTO restauranteDTO) {
+        return ResponseEntity.ok(service.atualizar(id, restauranteDTO));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> remover(@PathVariable Long id) {
-        return service.remover(id)
-                .map(removido -> ResponseEntity.noContent().<Void>build())
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        service.remover(id);
+        return ResponseEntity.noContent().build();
     }
 }

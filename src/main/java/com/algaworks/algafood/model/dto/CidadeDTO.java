@@ -4,13 +4,23 @@ import com.algaworks.algafood.model.entity.Estado;
 
 public class CidadeDTO {
 
+    private Long id;
     private String nome;
     private Estado estado;
 
 
-    public CidadeDTO(String nome, Estado estado) {
+    public CidadeDTO(Long id, String nome, Estado estado) {
+        this.id = id;
         this.nome = nome;
         this.estado = estado;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
